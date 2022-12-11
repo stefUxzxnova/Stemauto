@@ -1,0 +1,77 @@
+﻿@model Stemauto.ViewModels.Services.EditMyServiceVM
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Edit my service";
+}
+
+<fieldset>
+	<legend>EDIT SERVICE</legend>
+	<form action="/Services/Edit" method="post" enctype="multipart/form-data">
+
+		@Html.HiddenFor(m => m.Id)
+		@Html.HiddenFor(m => m.OwnerId)
+		@Html.HiddenFor(m => m.Img)
+
+
+		<div class="grid">
+
+			<div class="row">
+				File: <input type="file" name="image", style="width:200px;"/>
+			</div>
+
+			<div class="row">
+				<div class="col-1"><!--Username:-->
+					
+					@Html.LabelFor(m => m.Title)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Title)
+				</div>
+				<div class="col-2">
+					
+					@Html.ValidationMessageFor(m => m.Title)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextAreaFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Description)
+				</div>
+			</div>
+
+			
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Price)
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-2">
+					<a class="right" href="/Services/MyServices">Back</a> 
+					<input type="submit" class="right" value="Save"/>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+
+

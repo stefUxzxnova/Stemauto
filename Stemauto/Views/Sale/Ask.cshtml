@@ -1,0 +1,83 @@
+﻿@using Stemauto.Entities
+@using Stemauto.Extentions
+@model Stemauto.ViewModels.Sale.AskVM
+@{
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	ViewData["title"] = "Ask";
+}
+@{
+    User loggedUser = this.ViewContext.HttpContext.Session.GetObject<User>("loggedUser");
+}
+
+<fieldset>
+	@if(loggedUser != null)
+	{
+		<h3>Здравейте, @loggedUser.FirstName</h3>
+		<h4>С какво можем да Ви бъдем полезни</h4>
+	}
+	
+	<form action="/Sale/Ask" method="post">
+		<div class="grid">
+		
+			@Html.HiddenFor(m => m.Id)
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.FirstName)
+				</div>
+				<div class="col-2">
+					<!--<input type="text" name="firstname" value="Model.FirstName"/>-->
+					@Html.TextBoxFor(m => m.FirstName)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.FirstName)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.LastName)
+				</div>
+				<div class="col-2">
+					<!--<input type="text" name="lastname" value="Model.LastName"/>-->
+					@Html.TextBoxFor(m => m.LastName)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.LastName)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Subject)
+				</div>
+				<div class="col-1">
+					@Model.Subject
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Subject)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Body)
+				</div>
+				<div class="col-2">
+					<!--<input type="text" name="lastname" value="Model.LastName"/>-->
+					@Html.TextAreaFor(m => m.Body)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Body)
+				</div>
+			</div>
+
+			@ViewData["Message"]
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-2">
+					<a class="right" href="/Sale/Index">Back</a> 
+					<input type="submit" class="right" value="Save"/>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+

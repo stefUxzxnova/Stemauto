@@ -1,0 +1,72 @@
+﻿@model Stemauto.ViewModels.Services.UploadServiceVM
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Upload service";
+}
+
+<fieldset>
+	<legend>Upload service</legend>
+	<form action="/Services/UploadService" method="post" enctype="multipart/form-data">
+		<div class="grid">
+
+			<div class="row">
+				File: <input  type="file" name="image", style="width:200px;"/>
+			</div>
+
+			<div class="row">
+				<div class="col-1"><!--Username:-->
+					
+					@Html.LabelFor(m => m.Title)
+				</div>
+				<div class="col-2">
+					@Html.TextBoxFor(m => m.Title)
+
+				</div>
+				<div class="col-2">
+					
+					@Html.ValidationMessageFor(m => m.Title)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextAreaFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Description)
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Price)
+				</div>
+			</div>
+
+			
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-2">
+					<a class="right" href="/Services/Index">Back</a> 
+					<input type="submit" class="right" value="Save"/>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+
+

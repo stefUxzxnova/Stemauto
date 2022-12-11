@@ -1,0 +1,54 @@
+﻿@using Stemauto.Entities
+@using Stemauto.Extentions
+@model Stemauto.ViewModels.Services.IndexVM
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Services";
+}
+
+@{
+    User loggedUser = this.ViewContext.HttpContext.Session.GetObject<User>("loggedUser");
+}
+
+
+</br>
+@if(loggedUser != null){
+	
+<a href="/Services/UploadService"><button type="button" class="btn btn-primary btn-lg">Upload Sevice</button></a>
+<a href="/Services/MyServices"><button type="button" class="btn btn-secondary btn-lg">MyServices </button></a>
+}
+	<article class="servicesArticle">
+		<div class="album py-5">
+			<div class="container">
+				<div><h1>Услуги и цени</h1></div>
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
+					@foreach(Service item in Model.Services){
+						<div class="col">
+							<div class="card shadow-sm" style="height: 100%;">
+							<a id="half_permanent"><img style="width: 100%;" src="../Resourses/ServicesPhotos/@item.Img" alt=""></a>     
+							<div class="card-body">
+							<h5 style="text-align: center;">@item.Title</h5>
+								<br>
+								<p class="card-text">@item.Description</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<br>
+									<div style="position: absolute; bottom: 8px; left: 16px; font-size: 18px; color:#7a7a7a;">☆ @item.Price</div>                    
+								</div>
+								<div style="text-align:right;"><a href="/Order/Order?itemId=@item.Id">Order</a></div>
+								
+							</div>
+							</div>
+						</div>
+					}												
+				</div>
+			</div>
+		</div>
+	</article>
+
+	<aside class="servicesAside"><br>     
+    </aside>
+@*</div>
+*@

@@ -1,0 +1,79 @@
+﻿@using Stemauto.Entities
+@using Stemauto.Extentions
+@model Stemauto.ViewModels.Orders.BasketVM
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Basket";
+}
+<a href="/Order/OrderedItems">Ordered</a>
+
+<form action="/Order/SubmitOrder" method="post">
+			
+	<div class="grid" style="margin: auto; width: 90%; border: 3px solid grey; padding: 10px;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+		<div class="row">
+			<div class="col-1">
+				Order
+			</div>
+
+			<div class="col-1">
+				Title
+			</div>
+
+			<div class="col-2">
+				Description
+			</div>
+
+			<div class="col-1">
+				Price
+			</div>
+			<div class="col-1">
+				Quantity
+			</div>
+			
+		</div>
+		@foreach (Order order in Model.Orders)
+		{			
+			@*<input type="hidden" id="hidden" onchange="ddlItemsPerPage_OnChange()" value="@order.Item.Id">
+				*@	
+			<div class="row">
+				<div class="col-1">
+					<img src="../Resourses/ServicesPhotos/@order.Item.Img" style="width: 40px; height: 40px ">
+				</div>
+				<div class="col-1">@order.Item.Title</div>
+				<div class="col-2">@order.Item.Description</div>
+				<div class="col-1">@order.TotalPrice</div>
+				<div class="col-1">@order.Quantity</div>
+
+				<div class="col-1">
+@*						<input name="Quantity" type="number" id="quantity" placeholder="@order.Quantity" onchange="ddlItemsPerPage_OnChange()" min="@order.Quantity" max="100">
+*@				 <a href="#" class="btn btn-primary">Details</a>
+				</div>	
+						
+			</div>
+		}
+		
+		
+			
+		@*<script>
+					document.querySelector("input[id=quantity]")
+					.oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
+
+					function ddlItemsPerPage_OnChange() {
+
+					var be = document.getElementById("hidden")
+                    let control = document.getElementById("quantity");
+                    document.location.href = "/Services/Basket?Id=" + be.value + "&Quantity=" + control.value;
+                }
+
+					window.addEventListener('load', (event) => {
+                    document.getElementById("quantity"), document.getElementById("hidden");
+                });
+							
+		</script>*@
+				<input type="submit" onclick="return confirm('Are you sure?');" class="right" value="Save"/>
+	</div>
+</form>
+

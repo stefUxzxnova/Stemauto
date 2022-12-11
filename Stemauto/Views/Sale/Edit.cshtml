@@ -1,0 +1,126 @@
+﻿@model Stemauto.ViewModels.Sale.EditMyCarVM
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Edit my car";
+}
+
+<fieldset>
+	<legend>EDIT CAR</legend>
+	<form action="/Sale/Edit" method="post">
+
+		@Html.HiddenFor(m => m.Id)
+		@Html.HiddenFor(m => m.OwnerId)
+		@Html.HiddenFor(m => m.Img)
+
+
+		<div class="grid">
+
+			<div class="row">
+				File: <input name="Img" type="file" name="image", style="width:200px;"/>
+			</div>
+
+			<div class="row">
+				<div class="col-1"><!--Username:-->
+					
+					@Html.LabelFor(m => m.Brand)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Brand)
+				</div>
+				<div class="col-2">
+					
+					@Html.ValidationMessageFor(m => m.Brand)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextAreaFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Description)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Year)
+				</div>
+				<div class="col-2">
+					<input name="Year" type="number" placeholder="YYYY" min="1900" max="2023">
+					<!--
+					<script>
+						
+						document.querySelector("input[type=number]")
+						.oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
+					</script>
+					-->
+					<script>
+						$(function() {
+						$( "#datepicker" ).datepicker({dateFormat: 'yy'});
+						});​
+					</script>
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Year)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.HorsePower)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.HorsePower)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.HorsePower)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Km)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Km)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Km)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Price)
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-2">
+					<a class="right" href="/Sale/MyCars">Back</a> 
+					<input type="submit" class="right" value="Save"/>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+
+

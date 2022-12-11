@@ -1,0 +1,28 @@
+﻿@using Stemauto.Entities
+@model Stemauto.ViewModels.Orders.OrderedItemsVM
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Ordered";
+}
+
+<form action="/Order/OrderedItemsDone" method="post">
+	
+		@foreach(Order order in Model.Orders){
+			<div style="margin: auto; width: 90%; border: 3px solid grey; padding: 10px;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+				<div class="row">
+					<div class="col-md-7">
+					  <h2 class="featurette-heading">@order.Item.Title</h2>
+					  <p>@order.Item.Description</p>
+					</div>
+					<div class="col-md-3">
+						<img src="../Resourses/ServicesPhotos/@order.Item.Img" style="width: 100%;" alt="">
+					</div>
+				</div>
+			</div>
+		}
+		<input type="submit" onclick="return confirm('Are you sure?');" class="right" value="Save"/>
+</form>
+

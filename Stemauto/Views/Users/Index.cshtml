@@ -1,0 +1,89 @@
+﻿@using Stemauto.Entities
+@using Stemauto.Extentions
+@model Stemauto.ViewModels.Users.IndexVM
+
+
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "USERS";
+}
+
+@{
+    User loggedUser = this.ViewContext.HttpContext.Session.GetObject<User>("loggedUser");
+}
+
+<div class="grid">
+	<form action="/Users/Index" method="get">
+		<!--Html.HiddenFor(m => m.ItemsPerPage)-->
+        <div class="row">
+                <div class="col-1">
+					@Html.LabelFor(m => m.Username)
+				</div>
+                <div class="col-2">
+					@Html.LabelFor(m => m.FirstName)
+				</div>
+                <div class="col-2">
+					@Html.LabelFor(m => m.LastName)
+				</div>
+				
+        </div>
+        
+        <div class="row">
+                <div class="col-1">
+                    @Html.TextBoxFor(m => m.Username)
+                </div>
+                <div class="col-2">
+					@Html.TextBoxFor(m => m.FirstName)                
+				</div>
+                <div class="col-2">
+                     @Html.TextBoxFor(m => m.LastName)
+                </div>
+				 
+                <div class="col-1">
+                    <a  href="/Users/Index">Clear</a>
+                     <input type="submit" name="Filter">
+                </div>
+        </div>
+
+
+        </form>
+	<div class="row">
+		<div class="col-1">Username</div>
+		<div class="col-2">First Name</div>
+		<div class="col-2">Last Name</div>
+		<div class="col-2">Email</div>
+	</div>
+	@foreach(User item in Model.Items)
+	{
+		<div class="row">
+			<div class="col-1">@item.Username</div>
+			<div class="col-2">@item.FirstName</div>
+			<div class="col-2">@item.LastName</div>
+			<div class="col-2">@item.Email</div>
+
+			<div class="col-2">
+				
+				@if(item.Role == "admin"){
+					<p>Admin</p>
+				}
+				else{
+					
+					<a href="/Users/Edit?Id=@item.Id">edit</a> 
+					<a href="/Users/Delete?Id=@item.Id">delete</a>
+				}
+			</div>
+		</div>
+	}
+
+	<br/>
+	<div class="col-3">
+		@for (int i = 1; i <= Model.PagesCount; i++)
+		{
+			<a href="/Users/Index?Page=@i&ItemsPerPage=@Model.ItemsPerPage&Username=@Model.Username&FirstName=@Model.FirstName&LastName=@Model.LastName">@i</a>
+		}
+	</div>
+</div>
+

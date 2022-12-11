@@ -1,0 +1,60 @@
+﻿@model Stemauto.ViewModels.Sale.DetailsVM
+@using Stemauto.Enums
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Details";
+}
+<fieldset>
+		@Html.HiddenFor(m => m.Id)
+		</br>
+		<div style="margin: auto; width: 90%; border: 3px solid grey; padding: 10px;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+			<div class="row featurette">
+
+				<div class="col-md-9">
+					<h1 class="featurette-heading">@Model.Brand</h1>
+					<h3>@Model.Price lv.</h3>
+					  <hr class="featurette-divider">
+				</div>
+				<div class="col-md-6">
+					<img src="../Resourses/CarsPhotos/@Model.Img" style="width: 100%; height: 100%" alt="">
+				</div>
+
+				<div class="col-md-5">
+					<h2 class="featurette-heading">Year: </h2>@Model.Year
+					<h2 class="featurette-heading">Km: </h2>@Model.Km
+					<h2 class="featurette-heading">HorsePower: </h2>@Model.HorsePower
+					  <hr class="featurette-divider">
+					<h4>Description: @Model.Description</h4>
+				</div>
+				</br>
+				<hr class="featurette-divider">
+				<!--buttonInfo-->
+				<div class="col align-self-end"">
+					<button class="open-button" onclick="openForm()">More info</button>
+					<div class="form-popup" id="myForm">
+					<div class="form-container">
+						<h1>@Model.OwnerEmail</h1>
+						<button type="button" class="cancel" onclick="closeForm()">Close</button>
+					</div>
+				</div>
+               
+				<script>
+					function openForm() {
+						document.getElementById("myForm").style.display = "block";
+					}
+            
+					function closeForm() {
+						document.getElementById("myForm").style.display = "none";
+					}
+				</script>
+			</div>
+		</div>
+</fieldset>
+
+<!-- ButtonInfo -->
+
+  
+  

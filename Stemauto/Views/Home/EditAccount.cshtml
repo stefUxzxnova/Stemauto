@@ -1,0 +1,95 @@
+﻿@using Stemauto.Entities
+@using Stemauto.Extentions
+@model Stemauto.ViewModels.Home.EditAccountVM
+ 
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Edit Account";
+}
+@{
+    User loggedUser = this.ViewContext.HttpContext.Session.GetObject<User>("loggedUser");
+}
+
+<fieldset>
+	<legend>EDIT USER</legend>
+	<form action="/Home/EditAccount" method="post">
+		@Html.HiddenFor(m => m.Id)
+		<div class="grid">
+			<div class="row">
+				<div class="col-1"><!--Username:-->
+					<!--@Html -> генерира за нас автоматично Labels, TaxtBoxes...-->
+					@Html.LabelFor(m => m.Username)
+				</div>
+				<div class="col-2">
+					<!--<input type="text" name="username" value="@Model.Username"/>-->
+					@Html.TextBoxFor(m => m.Username)
+				</div>
+				<div class="col-2">
+					<!--<span style="color: red">@ViewData["Username"]</span>-->
+					@Html.ValidationMessageFor(m => m.Username)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Password)
+				</div>
+				<div class="col-2">
+					<!--<input type="password" name="password" value="@Model.Password"/>-->
+					@Html.PasswordFor(m => m.Password)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Password)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.FirstName)
+				</div>
+				<div class="col-2">
+					<!--<input type="text" name="firstname" value="@Model.FirstName"/>-->
+					@Html.TextBoxFor(m => m.FirstName)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.FirstName)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.LastName)
+				</div>
+				<div class="col-2">
+					<!--<input type="text" name="lastname" value="@Model.LastName"/>-->
+					@Html.TextBoxFor(m => m.LastName)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.LastName)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Email)
+				</div>
+				<div class="col-2">
+					<!--<input type="text" name="firstname" value="@Model.FirstName"/>-->
+					@Html.TextBoxFor(m => m.Email)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Email)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-2">
+					<a class="right" href="/Home/Index">Back</a> 
+					<input type="submit" class="right" value="Save"/>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<br/>
+	<a href="/Home/Delete?id=@loggedUser.Id" onclick="return confirm('Are you sure?');">Delete account</a>
+</fieldset>

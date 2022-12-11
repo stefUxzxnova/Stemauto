@@ -1,0 +1,75 @@
+﻿@using Stemauto.Entities
+@using Stemauto.Extentions
+@model Stemauto.ViewModels.Sale.IndexVM
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Sale car";
+}
+
+@{
+	User loggedUser = this.ViewContext.HttpContext.Session.GetObject<User>("loggedUser");
+}
+
+@if (loggedUser != null)
+{
+		<a href="/Sale/SaleCar">SaleCar</a>
+		<a href="/Sale/MyCars">MyCars</a>
+}
+<section>
+	<aside>
+		<form action="/Sale/Index" method="get">
+        
+		<div class="row">
+			<div class="col-1">Brand:</div>  
+        </div>
+		<div class="row">
+			<div class="col-1">@Html.TextBoxFor(m => m.Filter.Brand)</div>             
+		</div>
+        
+
+		<div class="row">
+		
+            <div class="col-2">
+				<a class="right" href="/Sale/Index">Clear</a>
+				<input class="right" type="submit" value="Filter"/>
+			</div>
+                
+        </div>
+        </form>
+	</aside>
+	<article>
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
+
+		@foreach (Car item in Model.Cars)
+		{
+			
+			<div class="card" style="width: 18rem;">
+				<img src="../Resourses/CarsPhotos/@item.Img" class="card-img-top" alt="carImage" style="height: 40%">
+				<div class="card-body">
+					<h5 class="card-title">@item.Brand</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"> Year: @item.Year</li>
+					<li class="list-group-item"> Km: @item.Km</li>
+					<li class="list-group-item">Price: @item.Price lv.</li>
+				</ul>
+				<div class="card-body">
+					<a href="/Sale/Details?Id=@item.Id" class="card-link">Details</a>
+					<a href="/Sale/Ask?Id=@item.Id" class="card-link">Ask</a>
+				</div>
+			</div>
+		}
+		</div>
+
+		<div class="col-3">
+		@{Html.RenderPartial("/Views/Partial/PagerPartial.cshtml", Model.Pager);}
+		</div>
+	</article>
+</section>
+
+</div>
+

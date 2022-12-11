@@ -1,0 +1,125 @@
+﻿@model Stemauto.ViewModels.Sale.SaleCarVM
+@using Stemauto.Enums
+@{
+	//css файла -> wwwroot
+	//използва css файла от папка shared 
+	this.Layout = "/Views/Shared/Shared.cshtml";
+	//title на html файла е home
+	ViewData["title"] = "Sale car";
+}
+
+<fieldset>
+	<legend>SALE CAR</legend>
+	<form action="/Sale/SaleCar" method="post" enctype="multipart/form-data">
+		<div class="grid">
+
+			<div class="row">
+				File: <input type="file" name="image" accept=".jpg, .jpeg, .png, .jfif", style="width:200px; "/>
+				
+			</div>
+
+			<div class="row">
+				<div class="col-1"><!--Username:-->
+					
+					@Html.LabelFor(m => m.Brand)
+				</div>
+				<div class="col-2">
+					<select name="Brand">
+					@foreach (Enum brand in Enum.GetValues(typeof(Brands)))
+					{
+						<option value="@brand">
+							@Enum.GetName(typeof(Brands), brand)
+						</option>
+					}
+					</select>
+				</div>
+				<div class="col-2">
+					
+					@Html.ValidationMessageFor(m => m.Brand)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextAreaFor(m => m.Description)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Description)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Year)
+				</div>
+				<div class="col-2">
+
+					<input name="Year" type="number" id="year" placeholder="YYYY" min="1900" max="2023">
+
+					<script>
+						document.querySelector("input[type=number]")
+						.oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
+
+						function save(){
+						var Year=document.getElementById('year').value;
+					}
+					</script>
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Year)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.HorsePower)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.HorsePower)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.HorsePower)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Km)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Km)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Km)
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-1">
+					@Html.LabelFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					
+					@Html.TextBoxFor(m => m.Price)
+				</div>
+				<div class="col-2">
+					@Html.ValidationMessageFor(m => m.Price)
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-2">
+					<a class="right" href="/Sale/Index">Back</a> 
+					<input type="submit" class="right" value="Save"/>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+

@@ -1,0 +1,45 @@
+﻿@model Stemauto.ViewModels.Shared.PagerVM
+
+@{ 
+  string controller = this.ViewContext.RouteData.Values["controller"].ToString();
+  string action = this.ViewContext.RouteData.Values["action"].ToString();
+
+  string pageState = "";
+  string itemsPerPageState = "";
+  foreach (string key in this.ViewContext.HttpContext.Request.Query.Keys)
+  {
+      if (key != "Pager.Page")
+          pageState += $"{key}={this.ViewContext.HttpContext.Request.Query[key]}&";
+
+      if (key != "Pager.Page" && key != "Pager.ItemsPerPage")
+          itemsPerPageState += $"{key}={this.ViewContext.HttpContext.Request.Query[key]}&";
+  }
+}
+
+@for(int i=1;i<=Model.PagesCount;i++)
+{
+    <a href="/@controller/@action?@(pageState)Pager.Page=@i">@i</a>
+}
+<script>
+        function ddlItemsPerPage_OnChange() {
+
+            let control = document.getElementById("ddlItemsPerPage");
+            document.location.href = "/@controller/@action?@Html.Raw(itemsPerPageState)Pager.ItemsPerPage=" + control.value;
+        }
+
+        window.addEventListener('load', (event) => {
+            if (@Model.ItemsPerPage === 3) {
+                document.getElementById("ddlItemsPerPage").selectedIndex = 0;
+            } else if (@Model.ItemsPerPage === 5) {
+                document.getElementById("ddlItemsPerPage").selectedIndex = 1;
+            } else if (@Model.ItemsPerPage === 10) {
+                document.getElementById("ddlItemsPerPage").selectedIndex = 2;
+            }
+        });
+</script>
+
+    <select id="ddlItemsPerPage" onchange="ddlItemsPerPage_OnChange()">
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+    </select>
